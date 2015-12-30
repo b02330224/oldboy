@@ -44,7 +44,9 @@ def main():
     province_num_list=get_num_list(entire_dict)
     #省级列表循环
     while True:
+        #设置标记位，为了跳出多级菜单
         flag='false'
+        #打印省级列表信息
         for k,v in province_num_list.items():
             print(k,v)
         input_num=input('请输入对应省份的编号,退出输入q:').strip()
@@ -65,6 +67,7 @@ def main():
                 for n,m in city_num_list.items():
                     print(n,m)
                 input_city_num=input('请输入对应城市的编号,输入b返回上级菜单，输入q退出:').strip()
+                #打印市级列表信息
                 if input_city_num=='q':
                     print('退出了！！！')
                     sys.exit(0)
@@ -81,6 +84,7 @@ def main():
                     county_list=entire_dict[p_name][city_name]
                     while flag=='false':
                         a = 1
+                        #打印县级列表信息
                         for i in county_list:
                             print(a,i)
                             a +=1
@@ -95,15 +99,6 @@ def main():
                         else:
                             if input_cent not in ['b','s','q']:
                                 print('请按提示输入，谢谢！！！')
-
-
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
     main()
