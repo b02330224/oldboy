@@ -1,1 +1,1 @@
-[{"username": "aaa", "passwd": "123456", "status": "locked"}, {"username": "bbb", "passwd": "123456", "status": "unlocked"}]
+{"aaa": {"passwd": "123456", "status": "locked"}, "bbb": {"passwd": "123456", "status": "unlocked"}}

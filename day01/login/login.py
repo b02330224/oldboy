@@ -1,8 +1,10 @@
 #!/usr/bin/env python
-import sys
 import json
+import sys
 
+#调试用
 #info_list={'aaa':{'passwd':'123456','status':'locked'},'bbb':{'passwd':'123456','status':'unlocked'}}
+
 #持久化用户信息文件
 def checkout(info_list):
     with open('info.json','w+') as f:

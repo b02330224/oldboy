@@ -94,6 +94,7 @@ def main():
                         elif input_cent=='q':
                             print('退出了！！！')
                             sys.exit(0)
+                        #实现退出两层循环
                         elif input_cent=='s':
                             flag='true'
                         else:
