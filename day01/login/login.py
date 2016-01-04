@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 import json
 import sys
 
@@ -7,13 +8,13 @@ import sys
 
 #持久化用户信息文件
 def checkout(info_list):
-    with open('info.json','w+') as f:
+    with open('info.json','w') as f:
         json.dump(info_list,f)
 #checkout(info_list)
 
 #加载用户信息
 def checkin():
-    with open('info.json','r+') as f:
+    with open('info.json','r') as f:
         return json.load(f)
 
 user_info=checkin()
