@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-<<<<<<< HEAD
 
-=======
-import json
->>>>>>> d691f9f001195326ac3ac41c1246354953943b48
 import sys
 import json
 import getpass
