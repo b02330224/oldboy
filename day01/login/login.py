@@ -21,7 +21,7 @@ def checkin():
         return json.load(f)
 
 user_info=checkin()
-print(user_info)
+print(user_info)#测试用
 
 while True:
     input_name=input('输入您的用户名：')
