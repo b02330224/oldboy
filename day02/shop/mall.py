@@ -19,7 +19,7 @@ import sys
 import getpass
 #import login
 
-shangpin={'iphone7':{'num':int(2),'price':int(6000)},'iphone6':{'num':int(3),'price':int(4600)},'xiomi4':{'num':int(5),'price':int(1800)},'letv':{'num':int(3),'price':int(2600),},'qiku':{'num':int(2),'price':int(1300)}}
+#shangpin={'iphone7':{'num':int(2),'price':int(6000)},'iphone6':{'num':int(3),'price':int(4600)},'xiomi4':{'num':int(5),'price':int(1800)},'letv':{'num':int(3),'price':int(2600),},'qiku':{'num':int(2),'price':int(1300)}}
 
 #info_list={'aaa':{'passwd':'123456','status':'unlocked','remain':int(0)},'bbb':{'passwd':'123456','status':'unlocked','remain':int(0)}}
 
@@ -29,6 +29,8 @@ shangpin={'iphone7':{'num':int(2),'price':int(6000)},'iphone6':{'num':int(3),'pr
 def write_to_file(shangpin):
     with open('shangpin.json','w') as f:
         json.dump(shangpin,f)
+#write_to_file(shangpin)
+
 
 #加载商品信息
 def read_out():
@@ -126,6 +128,11 @@ def show_menu():
                     print('此商品已经卖光了，下次早点儿来！！！')
                 else:
                     print('您的余额已不足，请充值后再购买')
+            write_to_file(shangpin)
+            print('您已经购买如下商品：')
+            print('商品名称','商品数量')
+            for shangpin_name in gouwu_list:
+                print(shangpin_name,gouwu_list[shangpin_name['num']])
 
 
 
