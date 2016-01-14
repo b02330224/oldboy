@@ -17,42 +17,61 @@ checkout(info_list)
 import json
 import sys
 import getpass
+
 #import login
 
-#shangpin={'iphone7':{'num':int(2),'price':int(6000)},'iphone6':{'num':int(3),'price':int(4600)},'xiomi4':{'num':int(5),'price':int(1800)},'letv':{'num':int(3),'price':int(2600),},'qiku':{'num':int(2),'price':int(1300)}}
+#shangpin={'iphone7':{'num':int(5),'price':int(6000)},'iphone6':{'num':int(5),'price':int(4600)},'xiomi4':{'num':int(5),'price':int(1800)},'letv':{'num':int(5),'price':int(2600),},'qiku':{'num':int(5),'price':int(1300)}}
 
 #info_list={'aaa':{'passwd':'123456','status':'unlocked','remain':int(0)},'bbb':{'passwd':'123456','status':'unlocked','remain':int(0)}}
 
 
 
 #持久化商品信息
-def write_to_file(shangpin):
+def write_into_shangpin(shangpin):
     with open('shangpin.json','w') as f:
         json.dump(shangpin,f)
+
 #write_to_file(shangpin)
 
-
 #加载商品信息
-def read_out():
+def read_out_shangpin():
     with open('shangpin.json','r') as z:
-        json.load(z)
+        return json.load(z)
 
+
+#持久化用户信息文件
+def write_into_userinfo(info_list):
+    with open('user.json','w') as x:
+        json.dump(info_list,x)
+#write_to_shangpin(info_list)
+
+#加载用户信息
+def read_out_userinfo():
+    with open('user.json','r') as c:
+        return json.load(c)
+#持久化购车车信息
+def write_into_gouwuche(gouwu):
+    with open('gouwuche.json','w') as m:
+        json.dump(gouwu,m)
+
+#加载购物车信息
+def read_out_gouwuche():
+    with open('gouwuche.json','r') as v:
+        return json.load(v)
+
+#检查购物车是否为空
+def check_gouwuche_empty(input_name):
+
+    if input_name in read_out_gouwuche().keys():
+        return 1
+    else:
+        return 0
 
 ############################################################################################################
 def login():
 
-#持久化用户信息文件
-    def checkout(info_list):
-        with open('user.json','w') as x:
-            json.dump(info_list,x)
-    #checkout(info_list)
+    user_info=read_out_userinfo()
 
-    #加载用户信息
-    def checkin():
-        with open('user.json','r') as c:
-            return json.load(c)
-
-    user_info=checkin()
     print(user_info)#测试用
 
     while True:
@@ -79,34 +98,39 @@ def login():
                  #如果剩余重试密码次数为0，改变用户状态为locked，同时持久化用户信息并退出！
                 else:
                     user_info[input_name]['status']='locked'
-                    checkout(user_info)
+                    write_into_userinfo(user_info)
                     print('输入密码错误次数太多，已被锁定，强制退出')
                     sys.exit(1)
 #####################################################################################################################
 #手机购买菜单
+all_user_gouwu_list={}
+write_into_gouwuche(all_user_gouwu_list)
 def show_menu():
-    gouwu_list={}
+    if check_gouwuche_empty(input_name):
+        gouwu_list=read_out_gouwuche()[input_name]
+    else:
+        all_user_gouwu_list[input_name]={}
+        gouwu_list=all_user_gouwu_list[input_name]
+
     while True:
         n=1
         num_dict={}
-        with open('shangpin.json','r') as y:
-            shangpin=json.load(y)
-        with open('user.json','r') as l:
-            info_user=json.load(l)
+        shangpin=read_out_shangpin()
+        info_user=read_out_userinfo()
 
         print('商品编号'.center(20),'商品名称'.center(15),'商品价格'.center(30),'商品数量'.center(1))
-        for i in shangpin.keys():
+        for i in shangpin.keys():#生成编号和商品对应的字典
             price=shangpin[i]['price']
             num=shangpin[i]['num']
             print('   ',str(n).center(20),'   ',i.ljust(30),str(price).ljust(5),'   ',str(num).center(25))
-            n+=1
             num_dict[n]=i
+            n+=1
         input_num=input('请输入您想要购买的手机编号（b）返回功能菜单：')
         if input_num=='b':
             show_chioce()
         elif check_input(input_num) ==1:
             print('请输入数字')
-        elif input_num not in num_dict.keys():
+        elif int(input_num) not in num_dict.keys():
             print('请输入正确的手机编号')
         else:
             choiced_shangpin=num_dict[int(input_num)]
@@ -114,25 +138,55 @@ def show_menu():
             for shouji in shangpin.keys():
                 price_list=[]
                 price_list.append(shangpin[shouji]['price'])
+            #用户余额
+            user_remain=info_user[input_name]['remain']
+            #最小商品单价
             min_price=min(price_list)
-            if shangpin_num >0 and info_user[input_name]['price']>min_price:
-                if choiced_shangpin in gouwu_list:
-                    gouwu_list[choiced_shangpin]['num']+1
-                    shangpin_num-=1
+            #如果商品数量大于0，而且用户余额大于最小商品单价
+            if shangpin_num >0 and user_remain>int(min_price):
+                if choiced_shangpin in gouwu_list.keys():
+                    gouwu_list_num=gouwu_list[choiced_shangpin]['num']
+                    gouwu_list_num+=1#购物车数量增加
+                    shangpin_num-=1#商品数量扣除
+                    user_remain-=shangpin[choiced_shangpin]['price']#用户费用扣除
+                    info_user[input_name]['remain']=user_remain#用户余额信息更新
+                    shangpin[choiced_shangpin]['num']=shangpin_num#商品信息更新
+                    gouwu_list[choiced_shangpin]['num']=gouwu_list_num#购物车信息更新
+                    all_user_gouwu_list[input_name]=gouwu_list
+
                 else:
-                    gouwu_list[choiced_shangpin]={}
-                    gouwu_list[choiced_shangpin]['num']=1
-                    shangpin_num-=1
+                    gouwu_list[choiced_shangpin]={'num':int(1)}#没有此种商品时，添加购物车
+                    shangpin_num-=1#商品数量扣除
+                    user_remain-=shangpin[choiced_shangpin]['price']#从用户余额中扣除费用
+                    info_user[input_name]['remain']=user_remain#用户余额信息更新
+                    shangpin[choiced_shangpin]['num']=shangpin_num#商品信息更新
+                    all_user_gouwu_list[input_name]=gouwu_list
+
+
             else:
                 if shangpin_num ==0:
                     print('此商品已经卖光了，下次早点儿来！！！')
                 else:
                     print('您的余额已不足，请充值后再购买')
-            write_to_file(shangpin)
+
+            write_into_gouwuche(all_user_gouwu_list)
+            write_into_shangpin(shangpin)#持久化商品信息
+            write_into_userinfo(info_user)#持久化用户信息
+            print('您的账户余额为%d'%read_out_userinfo()[input_name]['remain'])
             print('您已经购买如下商品：')
             print('商品名称','商品数量')
-            for shangpin_name in gouwu_list:
-                print(shangpin_name,gouwu_list[shangpin_name['num']])
+            #提示用户购物车中的商品
+            for shangpin_name in read_out_gouwuche()[input_name].keys():
+                print(shangpin_name,str(gouwu_list[shangpin_name]['num']))
+            #购物提示
+            while True:
+                con_input=input('继续购物(c),返回功能菜单（b）:')
+                if con_input=='c':
+                    break
+                elif con_input=='b':
+                    show_chioce()
+                else:
+                    print('请按提示输入')
 
 
 
@@ -163,11 +217,12 @@ def recharge(user):
 ###############################################################################################
 #功能菜单
 def show_chioce():
-    print('*'*60)
+    print('欢迎来到手机商城'.center(60,'*'))
     print('(1)进入手机购买菜单')
     print('(2)给账户充值')
     print('(3)查看账户余额')
-    print('(4)退出系统')
+    print('(4)查看购物车清单')
+    print('(5)退出系统')
     print('*'*60)
     while True:
         chioce=input('请选择功能清单编号：')
@@ -178,7 +233,8 @@ def show_chioce():
         elif chioce=='1':show_menu()
         elif chioce=='2':recharge(input_name)
         elif chioce=='3':show_remain(input_name)
-        elif chioce=='4':sys.exit(0)
+        elif chioce=='4':show_gouwu(input_name)
+        elif chioce=='5':sys.exit(0)
         else:continue
 ############################################################################################################
 #显示余额
@@ -186,6 +242,22 @@ def show_remain(user):
     with open('user.json','r') as d:
         user_list=json.load(d)
         print('您当前账户余额为%d'%user_list[user]['remain'])
+    show_chioce()
+
+#查看购物车
+def show_gouwu(input_name):
+    gouwuche_list=read_out_gouwuche()[input_name]
+    print('已经购买如下商品\n')
+    for ii in gouwuche_list:
+        print(ii,gouwuche_list[ii]['num'])
+    while True:
+        cont_input=input('继续购物(c),返回功能菜单（b）:')
+        if cont_input=='c':
+            show_menu()
+        elif cont_input=='b':
+            show_chioce()
+        else:
+            print('请按提示输入')
 
 
 #检查输入是否为数字
@@ -196,11 +268,8 @@ def check_input(type):
         return 1
 
 
-def main():
-    login()
-
 if __name__ == '__main__':
-    main()
+    login()
 
 
 

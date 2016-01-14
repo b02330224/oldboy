@@ -1,1 +1,1 @@
-{"iphone7": {"price": 6000, "num": 2}, "xiomi4": {"price": 1800, "num": 5}, "iphone6": {"price": 4600, "num": 3}, "letv": {"price": 2600, "num": 3}, "qiku": {"price": 1300, "num": 2}}
+{"letv": {"num": 5, "price": 2600}, "xiomi4": {"num": 5, "price": 1800}, "iphone6": {"num": 5, "price": 4600}, "qiku": {"num": 5, "price": 1300}, "iphone7": {"num": 5, "price": 6000}}
