@@ -246,18 +246,26 @@ def show_remain(user):
 
 #查看购物车
 def show_gouwu(input_name):
-    gouwuche_list=read_out_gouwuche()[input_name]
-    print('已经购买如下商品\n')
-    for ii in gouwuche_list:
-        print(ii,gouwuche_list[ii]['num'])
     while True:
-        cont_input=input('继续购物(c),返回功能菜单（b）:')
-        if cont_input=='c':
+
+        try:
+            gouwuche_list=read_out_gouwuche()[input_name]
+        except:
+            print('您还未购买商品，请您到购买菜单选择商品')
             show_menu()
-        elif cont_input=='b':
-            show_chioce()
-        else:
-            print('请按提示输入')
+            break
+
+        print('已经购买如下商品\n')
+        for ii in gouwuche_list:
+            print(ii,gouwuche_list[ii]['num'])
+        while True:
+            cont_input=input('继续购物(c),返回功能菜单（b）:')
+            if cont_input=='c':
+                show_menu()
+            elif cont_input=='b':
+                show_chioce()
+            else:
+                print('请按提示输入')
 
 
 #检查输入是否为数字
