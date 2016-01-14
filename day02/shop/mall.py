@@ -104,7 +104,6 @@ def login():
 #####################################################################################################################
 #手机购买菜单
 all_user_gouwu_list={}
-write_into_gouwuche(all_user_gouwu_list)
 def show_menu():
     if check_gouwuche_empty(input_name):
         gouwu_list=read_out_gouwuche()[input_name]
@@ -135,44 +134,26 @@ def show_menu():
         else:
             choiced_shangpin=num_dict[int(input_num)]
             shangpin_num=shangpin[choiced_shangpin]['num']
-            for shouji in shangpin.keys():
-                price_list=[]
-                price_list.append(shangpin[shouji]['price'])
-            #用户余额
-            user_remain=info_user[input_name]['remain']
-            #最小商品单价
-            min_price=min(price_list)
-            #如果商品数量大于0，而且用户余额大于最小商品单价
-            if shangpin_num >0 and user_remain>int(min_price):
+            #如果商品数量大于0
+            if shangpin_num >0:
                 if choiced_shangpin in gouwu_list.keys():
-                    gouwu_list_num=gouwu_list[choiced_shangpin]['num']
+                    gouwu_list_num=gouwu_list[choiced_shangpin]['num']#购物车中的商品数量
                     gouwu_list_num+=1#购物车数量增加
-                    shangpin_num-=1#商品数量扣除
-                    user_remain-=shangpin[choiced_shangpin]['price']#用户费用扣除
-                    info_user[input_name]['remain']=user_remain#用户余额信息更新
+                    shangpin_num-=1#商品数量扣除'
                     shangpin[choiced_shangpin]['num']=shangpin_num#商品信息更新
                     gouwu_list[choiced_shangpin]['num']=gouwu_list_num#购物车信息更新
-                    all_user_gouwu_list[input_name]=gouwu_list
+                    all_user_gouwu_list[input_name]=gouwu_list#更新所有用户总的购物车字典
 
                 else:
                     gouwu_list[choiced_shangpin]={'num':int(1)}#没有此种商品时，添加购物车
                     shangpin_num-=1#商品数量扣除
-                    user_remain-=shangpin[choiced_shangpin]['price']#从用户余额中扣除费用
-                    info_user[input_name]['remain']=user_remain#用户余额信息更新
                     shangpin[choiced_shangpin]['num']=shangpin_num#商品信息更新
-                    all_user_gouwu_list[input_name]=gouwu_list
-
-
+                    all_user_gouwu_list[input_name]=gouwu_list#更新购物车字典
             else:
-                if shangpin_num ==0:
-                    print('此商品已经卖光了，下次早点儿来！！！')
-                else:
-                    print('您的余额已不足，请充值后再购买')
-
+                print('此商品已经卖光了，下次早点儿来！！！')
+            #持久化数据
             write_into_gouwuche(all_user_gouwu_list)
-            write_into_shangpin(shangpin)#持久化商品信息
-            write_into_userinfo(info_user)#持久化用户信息
-            print('您的账户余额为%d'%read_out_userinfo()[input_name]['remain'])
+            write_into_shangpin(shangpin)
             print('您已经购买如下商品：')
             print('商品名称','商品数量')
             #提示用户购物车中的商品
@@ -180,19 +161,36 @@ def show_menu():
                 print(shangpin_name,str(gouwu_list[shangpin_name]['num']))
             #购物提示
             while True:
-                con_input=input('继续购物(c),返回功能菜单（b）:')
+                con_input=input('继续购物(c),(p)结账，返回功能菜单（b）:')
                 if con_input=='c':
                     break
                 elif con_input=='b':
                     show_chioce()
+                elif con_input=='p':
+                    settle_account()
                 else:
                     print('请按提示输入')
 
-
-
-
-
  ################################################################################################################
+#结账
+def settle_account():
+    if check_gouwuche_empty(input_name):#检查购物车是否为空
+        remain_money=read_out_userinfo()[input_name]['remain']
+        goods_list=read_out_gouwuche()[input_name]
+
+        cost=0
+        for good in goods_list.keys():
+            cost+=read_out_shangpin()[good]['price']*goods_list['num']
+        if remain_money>cost:
+            yu=remain_money=cost
+            print('结算成功，您的余额为%d元'%yu)
+        else:
+            print('您的余额不足，请充值或者修改您的购物车')
+            show_chioce()
+    else:
+        print('您尚未购买任何商品，请到商城买!')
+        show_menu()
+
 
 #充值函数
 def recharge(user):
@@ -222,7 +220,8 @@ def show_chioce():
     print('(2)给账户充值')
     print('(3)查看账户余额')
     print('(4)查看购物车清单')
-    print('(5)退出系统')
+    print('(5)结算系统')
+    print('(6)退出系统')
     print('*'*60)
     while True:
         chioce=input('请选择功能清单编号：')
@@ -234,7 +233,8 @@ def show_chioce():
         elif chioce=='2':recharge(input_name)
         elif chioce=='3':show_remain(input_name)
         elif chioce=='4':show_gouwu(input_name)
-        elif chioce=='5':sys.exit(0)
+        elif chioce=='5':settle_account()
+        elif chioce=='6':sys.exit(0)
         else:continue
 ############################################################################################################
 #显示余额
@@ -259,11 +259,13 @@ def show_gouwu(input_name):
         for ii in gouwuche_list:
             print(ii,gouwuche_list[ii]['num'])
         while True:
-            cont_input=input('继续购物(c),返回功能菜单（b）:')
+            cont_input=input('继续购物(c),结账（s）,返回功能菜单（b）:')
             if cont_input=='c':
                 show_menu()
             elif cont_input=='b':
                 show_chioce()
+            elif cont_input=='s':
+                settle_account()
             else:
                 print('请按提示输入')
 
