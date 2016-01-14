@@ -67,9 +67,15 @@ def check_gouwuche_empty(input_name):
     else:
         return 0
 
+#检查输入是否为数字
+def check_input(type):
+    try:
+        int(type)
+    except:
+        return 1
 ############################################################################################################
 def login():
-
+    #加载用户信息
     user_info=read_out_userinfo()
 
     print(user_info)#测试用
@@ -89,7 +95,7 @@ def login():
                     input_passwd=input('请输入您的密码：')
                     if input_passwd == user_info[input_name]['passwd']:  #如果用户名和密码对应
                         print('恭喜你登录成功！')
-                        show_chioce()
+                        show_chioce()#进入功能菜单
 
                     else:
                         passwd_try_times -= 1
@@ -213,38 +219,14 @@ def recharge(user):
 
 
 ###############################################################################################
-#功能菜单
-def show_chioce():
-    print('欢迎来到手机商城'.center(60,'*'))
-    print('(1)进入手机购买菜单')
-    print('(2)给账户充值')
-    print('(3)查看账户余额')
-    print('(4)查看购物车清单')
-    print('(5)结算系统')
-    print('(6)退出系统')
-    print('*'*60)
-    while True:
-        chioce=input('请选择功能清单编号：')
-        res=check_input(chioce)
-        if res==1:
-            print('请选择列表中的标号')
-            continue
-        elif chioce=='1':show_menu()
-        elif chioce=='2':recharge(input_name)
-        elif chioce=='3':show_remain(input_name)
-        elif chioce=='4':show_gouwu(input_name)
-        elif chioce=='5':settle_account()
-        elif chioce=='6':sys.exit(0)
-        else:continue
-############################################################################################################
-#显示余额
+#查询余额
 def show_remain(user):
     with open('user.json','r') as d:
         user_list=json.load(d)
         print('您当前账户余额为%d'%user_list[user]['remain'])
     show_chioce()
 
-#查看购物车
+#查询购物车
 def show_gouwu(input_name):
     while True:
 
@@ -269,13 +251,32 @@ def show_gouwu(input_name):
             else:
                 print('请按提示输入')
 
+########################################################################################
+#功能菜单
+def show_chioce():
+    print('欢迎来到手机商城'.center(60,'*'))
+    print('(1)进入手机购买菜单')
+    print('(2)给账户充值')
+    print('(3)查看账户余额')
+    print('(4)查看购物车清单')
+    print('(5)结算系统')
+    print('(6)退出系统')
+    print('*'*60)
+    while True:
+        chioce=input('请选择功能清单编号：')
+        res=check_input(chioce)
+        if res==1:
+            print('请选择列表中的标号')
+            continue
+        elif chioce=='1':show_menu()
+        elif chioce=='2':recharge(input_name)
+        elif chioce=='3':show_remain(input_name)
+        elif chioce=='4':show_gouwu(input_name)
+        elif chioce=='5':settle_account()
+        elif chioce=='6':sys.exit(0)
+        else:continue
+############################################################################################################
 
-#检查输入是否为数字
-def check_input(type):
-    try:
-        int(type)
-    except:
-        return 1
 
 
 if __name__ == '__main__':
