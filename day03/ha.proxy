@@ -1,1 +1,34 @@
-globallog 127.0.0.1 local2daemonmaxconn 256log 127.0.0.1 local2 infodefaultslog globalmode httptimeout connect 5000mstimeout client 50000mstimeout server 50000msoption  dontlognulllisten stats :8888stats enablestats uri       /adminstats auth      admin:1234frontend oldboy.orgbind 0.0.0.0:80option httplogoption httpcloseoption  forwardforlog globalacl www hdr_reg(host) -i www.oldboy.orguse_backend www.oldboy.org if wwwbackend test.oldboy.org        server 100.1.7.999 100.1.7.999 weight 20 maxconn 30server 100.1.7.9 100.1.7.9 weight 20 maxconn 3000server 100.1.7.999 100.1.7.999 weight 20 maxconn 3000backend buy.oldboy.orgserver 100.1.7.90 100.1.7.90 weight 20 maxconn 3000
+global
+        log 127.0.0.1 local2
+        daemon
+        maxconn 256
+        log 127.0.0.1 local2 info
+defaults
+        log global
+        mode http
+        timeout connect 5000ms
+        timeout client 50000ms
+        timeout server 50000ms
+        option  dontlognull
+
+listen stats :8888
+        stats enable
+        stats uri       /admin
+        stats auth      admin:1234
+
+frontend oldboy.org
+        bind 0.0.0.0:80
+        option httplog
+        option httpclose
+        option  forwardfor
+        log global
+        acl www hdr_reg(host) -i www.oldboy.org
+        use_backend www.oldboy.org if www
+backend test.oldboy.org
+        server 100.1.7.999 100.1.7.999 weight 20 maxconn 30
+        server 100.1.7.999 100.1.7.999 weight 20 maxconn 3
+
+
+backend buy.oldboy.org
+
+
