@@ -86,25 +86,33 @@ def function_list():
 
 def find():
     while True:
-        domain=input('请输入您要查找的域名：')
+        domain1=input('请输入您要查找的域名：')
         read_list=file_read_to_list()
         find_list=[]
-        flag=1
+        flag1=False
         for line in read_list:
             line=str(line).strip().strip('\n')
-            if line.startswith('backend %s'%domain):
-                flag=2
+            if line.startswith('backend %s'%domain1):
+                flag1=True
                 find_list.append(line)
-                print('您查找的域名存在，配置如下：')
-            if flag==2 and line.startswith('server'):
+                continue
+            if flag1 and line.startswith('server'):
                 find_list.append(line)
-            else:
-                for record in find_list:
-                    print(record)
-                function_list()
-        else:
-            print('您查找的域名不存在')
+            if flag1 and line=='':
+                continue
+            if flag1 and line.startswith('server') is not True:
+                break
+        if flag1 and find_list==[]:
+            print('域名存在，但是域名下记录不存在')
+        elif flag1:
+            for record in find_list:
+                print(record)
             function_list()
+        else:
+            print('你的域名不存在')
+            function_list()
+
+
 
 
 
