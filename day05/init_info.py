@@ -16,22 +16,16 @@ shangpin={'iphone7':{'num':int(5),'price':int(6000)},
           'letv':{'num':int(5),'price':int(2600),},
           'qiku':{'num':int(5),'price':int(1300)}}
 
-user_info={'aaa':{'passwd':'123456','status':'unlocked','cardID':'100'},
-           'bbb':{'passwd':'123456','status':'unlocked','cardID':'101'}}
+user_info={'aaa':{'passwd':'123456','status':'unlocked','cardID':['100']},
+           'bbb':{'passwd':'123456','status':'unlocked','cardID':['101']}}
 
 ATM_info={'100':{'draw_passwd':'100',
                  'edu':int(20000),
-                 'keyongedu':int(20000),
-                 'zhangdanri':'22',
-                 'huankuanri':'10',
-                 'zhangzhan':[['2016-02-16 01:12:12','xiaomi','-1000'],[]]
+                 'remain_money':int(20000)
                  },
           '101':{'draw_passwd':'101',
                  'edu':int(20000),
-                 'keyongedu':int(20000),
-                 'zhangdanri':'22',
-                 'huankuanri':'10',
-                 'zhangzhan':[['2016-02-16 01:12:12','xiaomi','-1000'],[]]
+                 'remain_money':int(20000)
                  }
           }
 #持久化商品信息

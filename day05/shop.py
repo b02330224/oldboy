@@ -4,7 +4,10 @@
 __author__='weiqiang'
 blog:http://www.cnblogs.com/weiqiangwang/
 '''
+
+from day05.ATM import *
 import json,sys
+
 
 #持久化商品信息
 def write_into_shangpin(shangpin):
@@ -15,29 +18,29 @@ def write_into_shangpin(shangpin):
 
 #加载商品信息
 def read_out_shangpin():
-    with open('shangpin.json','r') as z:
-        return json.load(z)
+    with open('shangpin.json','r') as f:
+        return json.load(f)
 
 
 #持久化用户信息文件
 def write_into_userinfo(info_list):
-    with open('user.json','w') as x:
-        json.dump(info_list,x)
+    with open('user.json','w') as f:
+        json.dump(info_list,f)
 #write_to_shangpin(info_list)
 
 #加载用户信息
 def read_out_userinfo():
-    with open('user.json','r') as c:
-        return json.load(c)
+    with open('user.json','r') as f:
+        return json.load(f)
 #持久化购车车信息
 def write_into_gouwuche(gouwu):
-    with open('gouwuche.json','w') as m:
-        json.dump(gouwu,m)
+    with open('gouwuche.json','w') as f:
+        json.dump(gouwu,f)
 
 #加载购物车信息
 def read_out_gouwuche():
-    with open('gouwuche.json','r') as v:
-        return json.load(v)
+    with open('gouwuche.json','r') as f:
+        return json.load(f)
 
 #加载银行卡信息
 def read_out_ATM():
@@ -60,8 +63,9 @@ def check_gouwuche_empty(input_name):
 def check_input(type):
     try:
         int(type)
-    except:
         return 1
+    except:
+        return 0
 ############################################################################################################
 def login():
     #加载用户信息
@@ -198,34 +202,11 @@ def settle_account():
         print('您还未绑定银行卡，请先去绑定卡片,自动为您返回主菜单')
         show_chioce()
 
-'''
-#充值函数
-def recharge(user):
-    while True:
-        rechare_money=input('请输入你的充值金额,(b)返回功能菜单：')
-        re=check_input(rechare_money)
-        if rechare_money=='b':
-            show_chioce()
-        elif re==1:
-            print('请输入数字！！！！！')
-        else:
-            with open('user.json','r') as e:
-                info_list=json.load(e)
-                remain=info_list[user]['remain']+int(rechare_money)
-                info_list[user]['remain']=remain
-                print('您当前的余额为%d'%info_list[user]['remain'])
-            with open('user.json','w')as m:
-                json.dump(info_list,m)
 
-'''
+
 
 ###############################################################################################
-#查询余额
-def show_remain(user):
-    with open('user.json','r') as d:
-        user_list=json.load(d)
-        print('您当前账户余额为%d'%user_list[user]['remain'])
-    show_chioce()
+
 
 #查询购物车
 def show_gouwu(input_name):
@@ -257,25 +238,31 @@ def show_chioce():
     print('欢迎来到手机商城'.center(60,'*'))
     print('(1)进入手机购买菜单')
     print('(2)查看购物车清单')
-    print('(3)结算系统')
-    print('(4)退出系统')
+    print('(3)结算购物车')
+    print('(4)ATM系统')
+    print('(5)退出系统')
     print('*'*60)
     while True:
         chioce=input('请选择功能清单编号：')
         res=check_input(chioce)
-        if res==1:
+        if res==0:
             print('请选择列表中的标号')
             continue
         elif chioce=='1':show_menu()
         elif chioce=='2':show_gouwu(input_name)
         elif chioce=='3':settle_account()
-        elif chioce=='4':sys.exit(0)
+        elif chioce=='4':ATM_login()
+        elif chioce=='5':sys.exit(0)
         else:continue
 ############################################################################################################
-
+#输出颜色设置
+def colour_setting(string, foreground=36, background=48, type=0):
+    return "\033[{3};{2};{1}m{0}\033[0m".format(string, background, foreground, type)
 
 
 if __name__ == '__main__':
+    print(colour_setting("欢迎进入信用卡购买手机商城").center(80))
+    print(60*"*")
     if login():
         show_chioce()
 
