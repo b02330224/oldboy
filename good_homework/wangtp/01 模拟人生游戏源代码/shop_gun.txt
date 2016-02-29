@@ -1,0 +1,1 @@
+{"jack": {"1": {"times": 1, "price": 6000, "goods": "B11"}, "2": {"times": 0, "price": 8000, "goods": "AK47"}}, "tom": {"1": {"times": 0, "price": 6000, "goods": "B11"}, "2": {"times": 1, "price": 8000, "goods": "AK47"}}}

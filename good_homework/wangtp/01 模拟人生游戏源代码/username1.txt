@@ -1,0 +1,1 @@
+{"jack": {"money": 74050, "bodyarmor": "True", "life_value": 990.0, "hurt": 11, "role": "police", "weapon": "B22"}, "tom": {"money": 136000, "bodyarmor": "False", "life_value": 780, "hurt": 10, "role": "terrorist", "masked": "False", "weapon": "Ak47"}}

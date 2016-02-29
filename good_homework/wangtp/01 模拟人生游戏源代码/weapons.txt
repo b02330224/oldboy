@@ -1,0 +1,1 @@
+{"jack": {"2":{"hurt": 20, "goods": "Rifle"}, "1": {"hurt": 10, "goods": "AK47"},"3": {"hurt": 30, "goods": "sniper"},"4": {"hurt": 40, "goods": "rocket_gun"}},"tom": {"2":{"hurt": 20, "goods": "dagger"}, "1": {"hurt": 10, "goods": "B11"},"3": {"hurt": 30, "goods": "sniper"},"4": {"hurt": 40, "goods": "antitank_grenade"}}}
