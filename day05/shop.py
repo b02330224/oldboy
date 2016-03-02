@@ -174,33 +174,34 @@ def show_menu():
                     print('请按提示输入')
 
  ################################################################################################################
-#结账
-def settle_account():
+#结算系统
+def settle_account(input_name,cardID,card_passwd):
     user_info=read_out_userinfo()
-    if user_info[input_name].has_key('cardID'):
-        cardID=user_info[input_name]['cardID']
-        if check_gouwuche_empty(input_name):#检查购物车是否为空
-            ATM_list=read_out_ATM()
-            remain_money=read_out_ATM[cardID]['keyongedu']
-            goods_list=read_out_gouwuche()[input_name]
+    while True:
+        if user_info[input_name].has_key('cardID'):
+            cardID=user_info[input_name]['cardID']
+            if check_gouwuche_empty(input_name):#检查购物车是否为空
+                card_info=quary_card_info(cardID)
+                remain_money=card_info['remain_money']
+                goods_list=read_out_gouwuche()[input_name]
 
-            cost=0
-            for good in goods_list.keys():
-                cost+=read_out_shangpin()[good]['price']*goods_list['num']
-            if remain_money>cost:
-                yu=remain_money-cost
-                print('结算成功，您的余额为%d元'%yu)
-                ATM_list[cardID]['keyongedu']=yu#更新ATM字典信息
-
+                cost=0
+                for good in goods_list.keys():
+                    cost+=read_out_shangpin()[good]['price']*goods_list['num']
+                if remain_money>cost:
+                    remain_money-=cost
+                    print('结算成功，您的余额为%d元'%remain_money)
+                    card_info['remain_money']=remain_money#更新ATM字典信息
+                    update_card_info(cardID,card_info)
+                else:
+                    print('您的余额不足，请充值或者修改您的购物车')
+                    show_chioce()
             else:
-                print('您的余额不足，请充值或者修改您的购物车')
-                show_chioce()
+                print('您尚未购买任何商品，请到商城买!')
+                show_menu()
         else:
-            print('您尚未购买任何商品，请到商城买!')
-            show_menu()
-    else:
-        print('您还未绑定银行卡，请先去绑定卡片,自动为您返回主菜单')
-        show_chioce()
+            print('您还未绑定银行卡，请先去绑定卡片,自动为您返回主菜单')
+            show_chioce()
 
 
 

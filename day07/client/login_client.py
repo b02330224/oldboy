@@ -5,13 +5,10 @@ __author__='weiqiang'
 blog:http://www.cnblogs.com/weiqiangwang/
 '''
 
-import hashlib,json
+import json,socket
+from oldboy.day07.common import common
 
-def encrypt(str):
-    hash=hashlib.sha224()
-    hash.update(str)
-    hash_res=hash.hexdigest()
-    return hash_res
+
 
 def login_cli(cli_sk):
     while True:
@@ -19,16 +16,16 @@ def login_cli(cli_sk):
         login_name=input('请输入您的用户名：')
         login_passwd=input('请输入您的密码：')
         if login_passwd:
-            passwd_sha2=encrypt(login_passwd)
-            login_info={'login_name':login_name,'login_passwd':login_passwd}
+            passwd_sha1=common.encrypt(login_passwd)
+            login_info={login_name:{'password':passwd_sha1}}
             str_login_info=json.dumps(login_info)
-            cli_sk.send(str_login_info)
-            recv_res=cli_sk.recv(1024)
+            cli_sk.send(bytes(str_login_info,encoding='utf-8'))
+            recv_res=str(cli_sk.recv(1024),encoding='utf=8')
             if recv_res=='1':
                 login_result=True
                 print('登录成功')
             elif recv_res=='2':
-                print('用户名或密码有误，请重新输入，错误三次将被锁定')
+                print('密码有误，请重新输入，错误三次将被锁定')
                 continue
             elif recv_res=='3':
                 print('您输入的用户名已被锁定')
@@ -36,5 +33,10 @@ def login_cli(cli_sk):
                 print('您输入的用户名不存在')
         return login_result
 
-
-
+ip_port=('localhost',9999)
+cli_sk=socket.socket()
+cli_sk.connect(ip_port)
+cli_sk.send(bytes('Request to establish a connection',encoding='utf-8'))
+server_data=cli_sk.recv(1024)
+print(str(server_data,encoding='utf-8'))
+login_cli(cli_sk)

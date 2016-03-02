@@ -7,8 +7,9 @@ blog:http://www.cnblogs.com/weiqiangwang/
 
 import os,sys
 
-BASEDIR=os.path.dirname(os.path.dirname(__file__))
+BASEDIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 sys.path.append(BASEDIR)
 
-file_db={"basedir":os.path.join(BASEDIR,'db'),'file_path':{'userinfo':'userinfo.db'}}
+file_db={"dbpath":os.path.join(BASEDIR,'db'),'file_path':{'userinfo':'userinfo.db'}}
+print(file_db['dbpath'])

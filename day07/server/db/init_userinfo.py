@@ -14,14 +14,14 @@ sys.path.append(BASE_DIR)
 from setting import setting
 
 _user_list = {
-    "test": {"password": "12345", "name": "test", "islocked": 0,"role": "user"},
-    "super": {"password": "12345", "name": "admin",  "islocked": 0, "role": "admin"}
+    "mugeda": {"password": "12345","islocked": 0,"role": "user"},
+    'mugeda1':{"password": "12345", "islocked": 0, "role": "admin"}
 }
 
 
 #初始化用户信息
 def init_userinfo():
-    userdb_file=os.path.join(setting.file_db['basedir'],'userinfo.db')
+    userdb_file=os.path.join(setting.file_db['dbpath'],'userinfo.db')
     with open(userdb_file,'w') as f:
         json.dump(_user_list,f)
 
