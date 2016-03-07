@@ -1,0 +1,7 @@
+
+2016-03-03 16:48:28 - error -  client - show - invalid literal for int() with base 10: '       \n' 
+2016-03-03 17:03:17 - error -  client - show - 'utf-8' codec can't decode bytes in position 146-147: unexpected end of data 
+2016-03-03 17:25:37 - error -  client - show - unorderable types: int() < str() 
+2016-03-03 17:27:10 - error -  client - show - unorderable types: int() < str() 
+2016-03-03 17:28:40 - error -  client - show - invalid literal for int() with base 10: '¼þ.txt\n' 
+2016-03-03 17:28:49 - error -  client - show - invalid literal for int() with base 10: '1503|2016:03-03 17:00:07                 0    1223.txt\n2016:03-03 17:00:13  <DIR>          0    fold' 
