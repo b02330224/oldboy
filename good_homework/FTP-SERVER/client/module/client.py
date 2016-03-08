@@ -2,8 +2,11 @@
 """
 自定义FTP客户端类,客户端对象包括属性：
 """
+import os,sys
+CLINET_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(CLINET_DIR)
 import socket
-import os
+
 import json
 from module import common
 from conf import codes

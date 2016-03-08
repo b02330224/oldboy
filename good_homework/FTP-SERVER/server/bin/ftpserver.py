@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-
+import os,sys
+SERVER_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(SERVER_DIR)
 import socketserver
 from multiprocessing import Process
 from conf import settings
@@ -71,6 +73,6 @@ def start():
     p.start()
     return p
 
-
+doprocess()
 
 

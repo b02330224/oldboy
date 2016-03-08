@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-import os
+import os,sys
+SERVER_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(SERVER_DIR)
 import time
 from conf import settings
 from modules import common

@@ -3,6 +3,9 @@
 __author : wangsong
 主接口文件,通过本文件去调用命令模块
 """
+import os,sys
+CLINET_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(CLINET_DIR)
 from module.client import Client
 from conf import template
 from conf import settings
@@ -84,3 +87,4 @@ def client_login(userobj):
             common.show_message("账户已被锁定,联系管理员!", "ERROR")
         else:
             common.show_message("用户不存在", "ERROR")
+start()

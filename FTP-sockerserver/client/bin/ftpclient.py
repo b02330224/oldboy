@@ -24,9 +24,9 @@ def main():
     #连接服务器
     connect_flag = True
     while connect_flag:
-        if new_client.connect(ip_port):
+        if new_client.connect():
             #登录
-            new_client.auth()
+            new_client.login()
             #登录成功
             while new_client.login_status:
                 show_menu=template.LOGINED_MENU.format(new_client.username,

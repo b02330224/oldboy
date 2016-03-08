@@ -4,10 +4,12 @@
 import socketserver,os,sys
 FTP_DIR=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SERVER_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOCAL_DIR=os.path.join(SERVER_DIR,'modules')
 sys.path.append(FTP_DIR)
 sys.path.append(SERVER_DIR)
+sys.path.append(LOCAL_DIR)
 from common import common
-from modules import server,user
+import user
 
 def auth(client_socket,client_send_data):
     '''
@@ -21,7 +23,7 @@ def auth(client_socket,client_send_data):
 
     client_user=user.User(username)
     #用户存在
-    if client_user.exist:
+    if client_user.exists:
         #用户被锁
         if client_user.islocked:
             auth_status='203'

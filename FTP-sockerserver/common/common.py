@@ -81,7 +81,7 @@ def input_check(msg,limit_value=tuple()):
         if not input_value:
             show_msg('输入不能为空','ERROR')
             continue
-        elif len(input_value)>0:
+        elif len(limit_value)>0:
             if input_value not in limit_value:
                 show_msg('输入值不正确,请重新输入','ERROR')
                 continue

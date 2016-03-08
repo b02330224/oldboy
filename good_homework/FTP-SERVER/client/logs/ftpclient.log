@@ -5,3 +5,14 @@
 2016-03-03 17:27:10 - error -  client - show - unorderable types: int() < str() 
 2016-03-03 17:28:40 - error -  client - show - invalid literal for int() with base 10: '件.txt\n' 
 2016-03-03 17:28:49 - error -  client - show - invalid literal for int() with base 10: '1503|2016:03-03 17:00:07                 0    1223.txt\n2016:03-03 17:00:13  <DIR>          0    fold' 
+2016-03-09 00:03:21 - error -  [WinError 10061] 由于目标计算机积极拒绝，无法连接。 
+2016-03-09 00:04:27 - error -  [WinError 10061] 由于目标计算机积极拒绝，无法连接。 
+2016-03-09 00:04:30 - error -  [WinError 10061] 由于目标计算机积极拒绝，无法连接。 
+2016-03-09 00:05:29 - error -  [WinError 10061] 由于目标计算机积极拒绝，无法连接。 
+2016-03-09 00:11:21 - error -  [WinError 10061] 由于目标计算机积极拒绝，无法连接。 
+2016-03-09 00:15:03 - error -  [WinError 10061] 由于目标计算机积极拒绝，无法连接。 
+2016-03-09 00:15:44 - error -  [WinError 10061] 由于目标计算机积极拒绝，无法连接。 
+2016-03-09 00:15:59 - error -  [WinError 10061] 由于目标计算机积极拒绝，无法连接。 
+2016-03-09 00:16:02 - error -  [WinError 10061] 由于目标计算机积极拒绝，无法连接。 
+2016-03-09 00:24:54 - error -  [WinError 10061] 由于目标计算机积极拒绝，无法连接。 
+2016-03-09 00:28:36 - error -  [WinError 10061] 由于目标计算机积极拒绝，无法连接。 

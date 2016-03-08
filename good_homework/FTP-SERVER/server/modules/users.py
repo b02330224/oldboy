@@ -4,7 +4,9 @@ __author: wangsong
 用户相关操作类，包括：
 创建用户、用户验证、获取用户的磁盘配额信息、断点续传文件信息、创建用户文档
 """
-import os
+import os,sys
+SERVER_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(SERVER_DIR)
 from conf import settings
 from modules import common
 from dbhelper import dbapi

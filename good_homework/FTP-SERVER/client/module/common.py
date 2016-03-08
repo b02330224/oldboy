@@ -3,9 +3,12 @@
 author: wangsong
 系统公共模块
 """
+import os,sys
+CLINET_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(CLINET_DIR)
 from datetime import datetime
 import io
-import sys
+
 import hashlib
 from conf import settings
 

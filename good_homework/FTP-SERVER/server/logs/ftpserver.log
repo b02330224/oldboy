@@ -91,3 +91,12 @@
 2016-03-03 17:40:02 - info - client ('127.0.0.1', 54918) send command show 
 2016-03-03 17:40:21 - info - client ('127.0.0.1', 54918) send command show 
 2016-03-03 17:40:25 - error - [WinError 10054] 远程主机强迫关闭了一个现有的连接。 
+2016-03-09 00:37:41 - info - client ('127.0.0.1', 50082) connected 
+2016-03-09 00:39:04 - info - client ('127.0.0.1', 50082) send command auth 
+2016-03-09 00:39:09 - info - client ('127.0.0.1', 50082) send command auth 
+2016-03-09 00:39:14 - info - client ('127.0.0.1', 50082) send command auth 
+2016-03-09 00:39:22 - info - client ('127.0.0.1', 50082) send command auth 
+2016-03-09 00:39:26 - info - client ('127.0.0.1', 50082) send command auth 
+2016-03-09 00:39:30 - info - client ('127.0.0.1', 50082) send command auth 
+2016-03-09 00:39:35 - info - client ('127.0.0.1', 50082) send command auth 
+2016-03-09 00:40:22 - error - [WinError 10054] 远程主机强迫关闭了一个现有的连接。 

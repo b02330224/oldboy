@@ -4,9 +4,12 @@
 __author:wangsong
 公共函数模块
 """
+import os,sys
+SERVER_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(SERVER_DIR)
 import hashlib
 import io
-import os
+
 from datetime import  datetime
 import logging
 from conf import settings

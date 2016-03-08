@@ -2,7 +2,9 @@
 """
 对文件数据库进行操作的模块
 """
-import os
+import os,sys
+SERVER_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(SERVER_DIR)
 import json
 from conf import settings
 from modules import common

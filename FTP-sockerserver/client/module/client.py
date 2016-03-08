@@ -15,13 +15,13 @@ from conf.codes import MSG_CODES
 
 class client(object):
 
-    def __init__(self,server_ip,server_port):
+    def __init__(self,ip_port):
         self.__down_path = setting.DOWNLOAD_DIR
         self.username = ''
         self.login_status = False
         self.totalspace = 0
         self.usedspace = 0
-        self._server = (server_ip,server_port)
+        self._server = (ip_port)
         self.socket = socket.socket()
 
     def connect(self):
@@ -31,7 +31,7 @@ class client(object):
         '''
         self.socket.connect(self._server)
         recive_server_data=str(self.socket.recv(1024),'utf-8')
-        if recive_server_data == MSG_CODES['CONN_SUSS']['num']:
+        if recive_server_data == MSG_CODES['CONN_SUCC']['num']:
 
             return True
         else:
@@ -55,12 +55,15 @@ class client(object):
 
             sendmsg='{cmd}|{username}|{passwd}'.format(cmd='auth',username=username,passwd=passwd)
             self.socket.sendall(bytes(sendmsg,'utf-8'))
-            auth_status = self.socket.recv(1024).decode('utf-8')
+            auth_status = str(self.socket.recv(1024),'utf-8')
+            print(auth_status)
+
             #登录成功
             if auth_status == MSG_CODES['AUTH_SUCC']['num']:
                 self.login_status = True
                 self.username = username
                 common.show_msg(MSG_CODES['AUTH_SUCC']['DESC'],'INFO')
+                return self.login_status
             #密码验证失败
             if auth_status == MSG_CODES['AUTH_FAIL']['num']:
                 common.show_msg(MSG_CODES['AUTH_FAIL']['DESC'],'ERROR')
@@ -70,5 +73,5 @@ class client(object):
             #用户被锁定
             if auth_status == MSG_CODES['USER_LOCKED']['num']:
                 common.show_msg(MSG_CODES['USER_LOCKED']['DESC'],'ERROR')
-        return self.login_status
+
 

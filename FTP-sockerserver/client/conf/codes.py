@@ -12,43 +12,43 @@ MSG_CODES={
         'DESC':'Connect success'
     },
     "CONN_FAIL":{
-        'num':101,
+        'num':'101',
         'DESC':'Connect faild'
     },
     "AUTH_SUCC":{
-        'num':200,
+        'num':'200',
         'DESC':'Auth success'
     },
     "AUTH_FAIL":{
-        'num':201,
+        'num':'201',
         'DESC':'Auth failed'
     },
     "USER_NOT_EXIST":{
-        'num':202,
+        'num':'202',
         'DESC':'user does not exists'
     },
     "USER_LOCKED":{
-        'num':203,
+        'num':'203',
         'DESC':'User had been locked'
     },
     "UPLOAD_SUCC":{
-        'num':300,
+        'num':'300',
         'DESC':'Upload Success'
     },
     "GET_SUCC":{
-        'num':301,
+        'num':'301',
         'DESC':'Download success'
     },
     "UPLOAD_FAIL":{
-        'num':302,
+        'num':'302',
         'DESC':'Uplaod failed'
     },
     "GET_FAIL":{
-        'num':303,
+        'num':'303',
         'DESC':'Download failed'
     },
     "FILE_NOT_EXIST":{
-        'num':304,
+        'num':'304',
         'DESC':'file does not exists'
     }
 }
