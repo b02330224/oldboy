@@ -23,6 +23,7 @@ class myserver(socketserver.BaseRequestHandler):
         common.write_log('client {0} connect the server'.format(client_addr),'info')
 
         while True:
+            #接受用户数据
             client_send_data = str(client_socket.recv(1024),encoding='utf-8')
             #取命令
             client_cmd = client_send_data.split('|')[0]
@@ -30,6 +31,12 @@ class myserver(socketserver.BaseRequestHandler):
             common.write_log('client {0} send command {1}'.format(client_addr,client_cmd),'info')
             if client_cmd == 'auth':
                 client_user=server.auth(client_socket,client_send_data)
+            else:
+                if hasattr(server,client_cmd):
+                    getattr(server,client_cmd)
+                    server.client_cmd()
+                else:
+                    se
 
 
 

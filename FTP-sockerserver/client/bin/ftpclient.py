@@ -30,8 +30,8 @@ def main():
             #登录成功
             while new_client.login_status:
                 show_menu=template.LOGINED_MENU.format(new_client.username,
-                                                           str(client.totalspace/1024/1024),
-                                                           str(client.usedspace/1024/1024))
+                                                           str(new_client.totalspace/1024/1024),
+                                                           str(new_client.usedspace/1024/1024))
                 common.show_msg(show_menu,"INFO")
                 input_command=common.parser_command('请按提示格式输入命令：')
                 if input_command == 'quit':

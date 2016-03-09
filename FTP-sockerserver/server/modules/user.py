@@ -20,7 +20,7 @@ class User(object):
     def __init__(self,username):
         self.username = username
         self.exists = False
-        self.islocked = 0
+        self.times = 3
         self.passwd = ''
         self.totalspace = 0
         self.usedspace = 0
@@ -44,23 +44,22 @@ class User(object):
         从配置文件加载用户信息，填充对象属性
         :return:
         '''
-        self.islocked = User.handler.read_section_option(self.username,'islocked')
+        self.times = int(User.handler.read_section_option(self.username,'times'))
         self.passwd = User.handler.read_section_option(self.username,'passwd')
-        self.totalspace = User.handler.read_section_option(self.username,'totalspace')
-        self.usedspace = User.handler.read_section_option(self.username,'usedspace')
+        self.totalspace = int(User.handler.read_section_option(self.username,'totalspace'))
+        self.usedspace = int(User.handler.read_section_option(self.username,'usedspace'))
 
 
     def auth(self,passwd):
-        user_pass=User.handler.read_section_option(self.username,'passwd')
-        times=3
-        while times>0:
-            if passwd == user_pass:
-                times=3
-                User.handler.write_into_option(self.username,'islocked',0)
+
+        if self.times>0:
+            if passwd == self.passwd:
+                self.times=3
+                User.handler.write_into_option(self.username,'times',str(self.times))
                 return True
             else:
-                times-=1
-                return False
-        else:
-            User.handler.write_into_option(self.username,'islocked',1)
+                self.times-=1
+                User.handler.write_into_option(self.username,'times',str(self.times))
+                print(self.times)
+
 

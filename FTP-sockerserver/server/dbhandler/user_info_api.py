@@ -13,7 +13,7 @@ from common import common
 
 #用户文件
 
-
+file_path=setting.USER_INFO_PATH
 class dbhandler(object):
     '''
     用户文件文件增删改查处理
@@ -56,6 +56,7 @@ class dbhandler(object):
             common.write_log('更新{0}的{1}为{2}'.format(section,option,value),'INFO')
         except Exception as e:
             common.write_log(e,'error')
+
 
 
 

@@ -51,6 +51,7 @@ class client(object):
         while not self.login_status:
             username=common.input_check('请输入你的用户名：')
             input_passwd=common.input_check('请输入您的密码：')
+            #密码加密
             passwd=common.encry_str(input_passwd)
 
             sendmsg='{cmd}|{username}|{passwd}'.format(cmd='auth',username=username,passwd=passwd)
@@ -62,6 +63,9 @@ class client(object):
             if auth_status == MSG_CODES['AUTH_SUCC']['num']:
                 self.login_status = True
                 self.username = username
+                space_info = str(self.socket.recv(100),encoding='utf8')
+                self.totalspace = int(space_info.split("|")[0])
+                self.usedspace = int(space_info.split("|")[1])
                 common.show_msg(MSG_CODES['AUTH_SUCC']['DESC'],'INFO')
                 return self.login_status
             #密码验证失败

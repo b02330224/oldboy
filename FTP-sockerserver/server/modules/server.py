@@ -23,19 +23,23 @@ def auth(client_socket,client_send_data):
 
     client_user=user.User(username)
     #用户存在
+    print(client_user.times)
+    print(type(client_user.times))
     if client_user.exists:
         #用户被锁
-        if client_user.islocked:
+        if not client_user.times:
             auth_status='203'
         #密码正确
         elif client_user.auth(passwd):
             user_sapce='{0}|{1}'.format(client_user.totalspace,client_user.usedspace)
             auth_status='200'
+        #密码错误
         else:
-            auth_status='201'
+            auth_status = '201'
     #用户不存在
     else:
         auth_status='202'
+    print(auth_status)
     client_socket.sendall(bytes(auth_status,encoding='utf8'))
     if auth_status == '200':
         client_socket.sendall(bytes(user_sapce,encoding='utf8'))
