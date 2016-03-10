@@ -17,3 +17,5 @@ USER_INFO_PATH=os.path.join(USER_INFO_DIR,'user.ini')
 SERVER_IP='127.0.0.1'
 #服务器端口
 SERVER_PORT=9999
+
+HOME_DIR=os.path.join(SERVER_DIR,'homedir')

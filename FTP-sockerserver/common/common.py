@@ -43,7 +43,7 @@ def encry_str(str):
     '''
     此函数主要为密码加密使用
     :param str:
-    :return:
+    :return:字符串的加密结果
     '''
     sha=hashlib.sha224()
     sha.update(str.encode())
@@ -111,8 +111,8 @@ def parser_command(msg):
                 show_msg('你输入的命令不合法，请重新输入','NOTICE')
                 continue
             else:
-                cmd=input_command.split('1')[0].strip().lower()
-                agrs=input_command.split()[1].strip()
+                cmd=input_command.split('|')[0].strip().lower()
+                agrs=input_command.split('|')[1].strip()
                 if cmd not in limit_value:
                     show_msg('您输入的命令不存在，请重新输入','ERROR')
                     continue

@@ -15,29 +15,32 @@ from modules import server
 class myserver(socketserver.BaseRequestHandler):
 
     def handle(self):
-        client_socket=self.request
-        client_addr = self.client_address
-        #发送连接成功标识
-        client_socket.sendall(bytes('100','utf8'))
-        #客服端连接日志
-        common.write_log('client {0} connect the server'.format(client_addr),'info')
+        try:
+            client_socket=self.request
+            client_addr = self.client_address
+            #发送连接成功标识
+            client_socket.sendall(bytes('100','utf8'))
+            #客服端连接日志
+            common.write_log('client {0} connect the server'.format(client_addr),'info')
 
-        while True:
-            #接受用户数据
-            client_send_data = str(client_socket.recv(1024),encoding='utf-8')
-            #取命令
-            client_cmd = client_send_data.split('|')[0]
-            #记录操作日志
-            common.write_log('client {0} send command {1}'.format(client_addr,client_cmd),'info')
-            if client_cmd == 'auth':
-                client_user=server.auth(client_socket,client_send_data)
-            else:
-                if hasattr(server,client_cmd):
-                    getattr(server,client_cmd)
-                    server.client_cmd()
+            while True:
+                #接受用户数据
+                client_send_data = str(client_socket.recv(1024),encoding='utf-8')
+                #取命令
+                client_cmd = client_send_data.split('|')[0]
+                #记录操作日志
+                common.write_log('client {0} send command {1}'.format(client_addr,client_cmd),'info')
+                if client_cmd == 'auth':
+                    client_user=server.auth(client_socket,client_send_data)
                 else:
-                    se
+                    if hasattr(server,client_cmd):
+                        getattr(server,client_cmd)
+                        server.client_cmd()
+                    else:
+                        common.write_log('您输入的命令不存在','ERROE')
 
+        except Exception as e:
+            common.write_log(e,'error')
 
 
 

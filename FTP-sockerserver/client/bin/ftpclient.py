@@ -40,16 +40,19 @@ def main():
                 else:
                     #获取输入的命令
                     get_cmd=input_command.split('|')[0]
-                    try:
-                        #利用反射调用
-                        if hasattr(new_client,get_cmd):
-                            get_cmd = getattr(new_client,get_cmd)
-                            exec_res = get_cmd(new_client,input_command)
-                            print(exec_res)
-                        else:
-                            common.write_log('{0}命令未找到'.format(get_cmd),'error')
-                    except Exception as e:
-                        common.write_log(e,'error')
+                    print(get_cmd)
+                    #try:
+                    #利用反射调用
+                    if hasattr(new_client,get_cmd):
+                        get_cmd = getattr(new_client,get_cmd)
+                        print('------------111111111')
+                        exec_res = get_cmd(new_client,input_command)
+                        print('222222222222222222')
+                        print(exec_res)
+                    else:
+                        common.write_log('{0}命令未找到'.format(get_cmd),'error')
+                    #except Exception as e:
+                     #   common.write_log(e,'error')
 
 if __name__ == '__main__':
     main()

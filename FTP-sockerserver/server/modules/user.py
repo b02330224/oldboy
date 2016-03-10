@@ -25,7 +25,7 @@ class User(object):
         self.totalspace = 0
         self.usedspace = 0
         #用户家目录
-        self.homedir = os.path.join(setting.SERVER_DIR,self.username)
+        self.homedir = os.path.join(setting.HOME_DIR,self.username)
         self.__check_user()
 
 
