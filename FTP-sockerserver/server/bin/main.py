@@ -26,7 +26,10 @@ class myserver(socketserver.BaseRequestHandler):
             while True:
                 #接受用户数据
                 client_send_data = str(client_socket.recv(2048),encoding='utf-8')
-                print('33333333333333',client_send_data)
+				if client_send_data = b'':
+					common.write_log('client {0} disconnected'.format(client_addr,'error'))
+					clent_socket.close()
+					break
                 #取命令
                 client_cmd = client_send_data.split('|')[0]
                 #记录操作日志
