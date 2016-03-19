@@ -1,0 +1,22 @@
+2016-03-16 16:15:21,095 - ERROR - None
+2016-03-16 16:16:52,476 - ERROR - None
+2016-03-16 16:16:52,476 - ERROR - None
+2016-03-16 16:17:40,328 - ERROR - None
+2016-03-16 16:17:40,328 - ERROR - None
+2016-03-16 16:20:10,683 - ERROR - Unable to connect to 192.168.2.128: [Errno 113] No route to host
+2016-03-16 16:33:46,352 - ERROR - 'port'
+2016-03-16 16:34:14,302 - ERROR - 'port'
+2016-03-16 16:35:59,948 - ERROR - 'port'
+2016-03-16 16:36:56,078 - ERROR - 'port'
+2016-03-16 16:40:12,506 - ERROR - [Errno 2] No such file or directory: '/data/mysql/conf/my.cnf'
+2016-03-16 16:42:51,075 - ERROR - [Errno 2] No such file
+2016-03-16 17:00:13,926 - ERROR - IndexError
+2016-03-16 17:00:34,694 - ERROR - Import module error
+2016-03-16 17:01:11,073 - ERROR - Import module error
+2016-03-16 17:01:17,144 - ERROR - Import module error
+2016-03-16 17:01:35,737 - ERROR - 'module' object has no attribute 'cun'
+2016-03-16 17:03:41,834 - ERROR - 'module' object has no attribute 'cuu'
+2016-03-16 17:05:10,683 - ERROR - 'module' object has no attribute 'cuu'
+2016-03-16 17:05:27,336 - ERROR - 'module' object has no attribute 'cuu'
+2016-03-16 17:05:41,969 - ERROR - 'module' object has no attribute 'cuu'
+2016-03-16 17:16:54,758 - ERROR - ''
